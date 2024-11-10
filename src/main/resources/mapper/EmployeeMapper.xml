@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.edu.model.EmployeeMapper">
+
+    <select id="findAll" resultType="com.edu.model.Employee"> SELECT id, firstName, lastName, email, age
+                                                              FROM Employee </select>
+    <select id="findById" parameterType="long"
+            resultType="com.edu.model.Employee"> SELECT id, firstName, lastName, email, age
+                                                 FROM Employee
+                                                 WHERE id = #{id} </select>
+    <insert id="insert"
+            parameterType="com.edu.model.Employee"> INSERT INTO Employee (firstName, lastName, email, age)
+                                                    VALUES (#{firstName}, #{lastName}, #{email}, #{age}) </insert>
+    <update id="update" parameterType="com.edu.model.Employee"> UPDATE Employee
+                                                                SET firstName = #{firstName},
+                                                                    lastName  = #{lastName},
+                                                                    email     = #{email} age= #{age}
+                                                                WHERE id = #{id} </update>
+    <delete id="delete" parameterType="long">
+        DELETE
+        FROM Employee
+        WHERE id = #{id}
+    </delete>
+
+    <select id="getEmployeesByAge" resultType="com.edu.model.Employee">
+        CALL getEmployeesByAge()
+    </select>
+    <select id="getEmployeesByAgeFunction" resultType="string" parameterType="int">
+        SELECT getEmployeesByAgeFun(#{age, mode=IN}) AS result
+    </select>
+
+</mapper>
